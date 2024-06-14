@@ -1,0 +1,13 @@
+matplotlib
+opencv-contrib-python
+antspyx
+SimpleITK
+antspynet
+colorama
+tqdm
+deap
+torch
+torchtext
+torchaudio
+torchvision
+--index-url https://download.pytorch.org/whl/cu118
