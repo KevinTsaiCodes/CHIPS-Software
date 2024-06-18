@@ -100,12 +100,9 @@ def run(input_path: str, low_thresh: float, high_thresh: float, cleanup: int):
     output_brain_data = add_suffix_to_filename(input_path.split("/")[-1], suffix="extracted_brain")
     output_brain_path = os.path.join(output_folder, output_brain_data)
 
-    # save the extracted brain image
-
+    # write the extracted brain image
     ants.image_write(extracted_brain, output_brain_path)
-
     print(f"{Fore.RED}Extracted brain saved to: {output_brain_path}{Style.RESET_ALL}")
-
 
 
 def main(opt):
