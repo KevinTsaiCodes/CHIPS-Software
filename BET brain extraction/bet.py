@@ -83,28 +83,29 @@ def add_suffix_to_filename(filename: str, suffix:str) -> str:
         print(f"{Fore.GREEN}Processed Finished!")
 
 def run(input_path: str, low_thresh: float, high_thresh: float, cleanup: int):
-    # Load the input image
     raw_data_path = ants.image_read(input_path, reorient="IAL")
-
-    # Generate the probabilistic brain mask
-    prob_brain_mask = brain_extraction(raw_data_path, modality="flair", verbose=True)
-
-    # Get the final brain mask using thresholds and cleanup
+    prob_brain_mask = brain_extraction(raw_data_path, modality="flair", verbose=True)  # generate the probabilty brain mask
     final_brain_mask = ants.get_mask(prob_brain_mask, low_thresh=low_thresh, high_thresh=high_thresh, cleanup=cleanup)
-
-    # Apply the brain mask to the original image to extract the brain
+    output_folder = os.path.join("assets", "bet_result")
+    os.makedirs(output_folder, exist_ok=True)  # create the output folder for the NifTI after BET procedure.
+    output_brain_mask = add_suffix_to_filename(input_path.split("/")[-1], suffix="brain_mask")
+    output_brain_mask_path = os.path.join(output_folder, output_brain_mask)
+    final_brain_mask.to_file(output_brain_mask_path)  # write the brain mask
+    print(f"{Fore.RED}Brain masked saved to: {output_brain_mask_path}{Style.RESET_ALL}")
+    
+    # Now, create the extracted brain images, and saved it
     extracted_brain = raw_data_path * final_brain_mask
 
-    # Define output folder and filename
     output_folder = os.path.join("assets", "bet_result")
     os.makedirs(output_folder, exist_ok=True)
     output_brain_data = add_suffix_to_filename(input_path.split("/")[-1], suffix="extracted_brain")
     output_brain_path = os.path.join(output_folder, output_brain_data)
 
-    # Save the extracted brain image
+    # save the extracted brain image
+
     ants.image_write(extracted_brain, output_brain_path)
 
-    print(f"Extracted brain saved to: {output_brain_path}")
+    print(f"{Fore.RED}Extracted brain saved to: {output_brain_path}{Style.RESET_ALL}")
 
 
 
