@@ -4,7 +4,6 @@ import ants
 import SimpleITK as sitk
 from colorama import Fore, Style
 import time
-from tqdm import tqdm
 import argparse
 import numpy as np
 from antspynet.utilities import brain_extraction  # import brain_extraction_toolbox
