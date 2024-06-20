@@ -95,7 +95,7 @@ def run(input_path: str, low_thresh: float, high_thresh: float, cleanup: int):
 
     output_folder = os.path.join("assets", "bet_result")
     os.makedirs(output_folder, exist_ok=True)
-    output_brain_data = add_suffix_to_filename(input_path.split("/")[-1], suffix="extracted_brain")
+    output_brain_data = add_suffix_to_filename(input_path.split("/")[-1], suffix="brain")
     output_brain_path = os.path.join(output_folder, output_brain_data)
 
     # write the extracted brain image
