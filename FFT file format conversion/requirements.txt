@@ -1,0 +1,8 @@
+opencv-contrib-python
+tqdm
+matplotlib
+pydicom
+SimpleITK
+colorama
+nibabel
+dicom2nifti
